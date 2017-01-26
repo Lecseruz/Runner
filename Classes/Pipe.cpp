@@ -4,7 +4,7 @@
 
 #include "Pipe.h"
 
-Pipe *Pipe::create(std::string filename) {
+auto Pipe::create(std::string filename)-> Pipe * {
     Pipe *sprite = new (std::nothrow) Pipe();
     if (sprite && sprite->initWithFile(filename))
     {
@@ -16,7 +16,7 @@ Pipe *Pipe::create(std::string filename) {
     return nullptr;
 }
 
-Obstacle *Pipe::clone() {
+auto Pipe::clone()-> Obstacle * {
     Pipe *pipe = create(fileName);
     pipe->setScale(this->getScale());
     pipe->setPosition(this->getPosition());
@@ -24,6 +24,6 @@ Obstacle *Pipe::clone() {
     return pipe;
 }
 
-void Pipe::setFileName(std::string filename) {
+auto Pipe::setFileName(std::string filename)-> void {
     this->fileName = filename;
 }

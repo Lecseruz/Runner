@@ -12,9 +12,9 @@ USING_NS_CC;
 
 class Runner: public Sprite {
 public:
-    static Runner* create(std::string filename);
+    static auto create(std::string filename)-> Runner* ;
 
-    static Runner* create();
+    static auto create()-> Runner*;
 };
 
 

@@ -10,7 +10,7 @@
 class AbstractFactory {
     virtual cocos2d::Scene *createMainMenuScene() = 0;
     virtual cocos2d::Scene *createGameScene() = 0;
-    virtual cocos2d::Scene *createExitScene() = 0;
+    virtual cocos2d::Scene *createGameOverScene() = 0;
 };
 
 

@@ -9,7 +9,7 @@ auto GameWorldController::setInvisible(Node *node)->void {
     node->setVisible(false);
 }
 
-void GameWorldController::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+auto GameWorldController::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)-> void {
     switch (keyCode) {
         case EventKeyboard::KeyCode::KEY_UP_ARROW :{
             if (is_jumped()){
@@ -36,7 +36,7 @@ void GameWorldController::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, 
     }
 }
 
-void GameWorldController::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+auto GameWorldController::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)-> void {
     switch (keyCode) {
         case EventKeyboard::KeyCode::KEY_UP_ARROW :{
 
@@ -53,7 +53,7 @@ void GameWorldController::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode,
     }
 }
 
-bool GameWorldController::is_jumped() {
+auto GameWorldController::is_jumped()-> bool {
     return world->getRunner()->getPosition().y != Vec2(500, 350).y;
 }
 
@@ -66,6 +66,7 @@ GameWorldController::GameWorldController(GameWorld *world):
     }
     _nextPipe = 0;
     _nextPipeSpawn = 0;
+
 }
 
 auto GameWorldController::get_time_tick() -> double {
@@ -75,10 +76,9 @@ auto GameWorldController::get_time_tick() -> double {
     return (double) millisecs;
 }
 
-void GameWorldController::update(float dt) {
+auto GameWorldController::update(float dt)-> void {
 
     srand(time(NULL));
-    //    log("time: %f", getTimeTick());
     double curTimeMillis = get_time_tick();
     if (curTimeMillis > _nextPipeSpawn) {
 //        log("spawn: %f", _nextPipeSpawn);
@@ -141,14 +141,14 @@ void GameWorldController::update(float dt) {
     }
 }
 
-bool GameWorldController::checkBoxCollisionLeftBack(Sprite *box1, Sprite *box2) {
+auto GameWorldController::checkBoxCollisionLeftBack(Sprite *box1, Sprite *box2)-> bool {
     Rect box1Rect = box1->getBoundingBox();
     Rect box2Rect = box2->getBoundingBox();
 
     return box1Rect.intersectsRect(box2Rect);
 }
 
-bool GameWorldController::checkBoxCollisionTopBottom(Sprite *box1, Sprite *box2) {
+auto GameWorldController::checkBoxCollisionTopBottom(Sprite *box1, Sprite *box2)-> bool {
     Rect box1Rect = box1->getBoundingBox();
     Rect box2Rect = box2->getBoundingBox();
 
@@ -157,9 +157,13 @@ bool GameWorldController::checkBoxCollisionTopBottom(Sprite *box1, Sprite *box2)
               box2Rect.getMaxX() < box1Rect.getMinX()) && (box1Rect.getMinY() <= y && box1Rect.getMinY() >= y -10));
 }
 
-void GameWorldController::GoToExitScene(cocos2d::Ref *sender) {
-    Director::getInstance()->pushScene(TransitionFade::create(0.5, SceneFactory::getInstanse().createExitScene()));
+auto GameWorldController::GoToExitScene(cocos2d::Ref *sender)-> void {
+    auto scene = SceneFactory::getInstanse().createGameOverScene();
+    scene->getChildByTag(10)->setTag(world->getTime());
+    Director::getInstance()->pushScene(TransitionFade::create(0.5, scene));
 }
+
+
 
 
 

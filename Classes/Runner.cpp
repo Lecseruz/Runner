@@ -7,7 +7,7 @@
 
 
 
-Runner *Runner::create(std::string filename) {
+auto Runner::create(std::string filename)-> Runner * {
     Runner *sprite = new (std::nothrow) Runner();
     if (sprite && sprite->initWithFile(filename))
     {
@@ -18,7 +18,7 @@ Runner *Runner::create(std::string filename) {
     return nullptr;
 }
 
-Runner* Runner::create()
+auto Runner::create()-> Runner*
 {
     Runner *sprite = new (std::nothrow) Runner();
     if (sprite && sprite->init())

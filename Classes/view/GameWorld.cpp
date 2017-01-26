@@ -2,18 +2,18 @@
 
 USING_NS_CC;
 
-void GameWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+auto GameWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)-> void
 {
     controller->onKeyPressed(keyCode, event);
 }
 
-void GameWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+auto GameWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)-> void
 {
     controller->onKeyReleased(keyCode, event);
 }
 
 // on "init" you need to initialize your instance
-bool GameWorld::init()
+auto GameWorld::init()-> bool
 {
     srand ( time(NULL) );
     if ( !Layer::init() )
@@ -21,19 +21,16 @@ bool GameWorld::init()
         return false;
     }
     Size winSize = Director::getInstance()->getWinSize();
-//    pipes.reserve(KNUMASTEROIDS);
     auto sprite = Sprite::create("my_window1.jpg");
     sprite->setPosition(Vec2(600, 600));
     this->addChild(sprite);
+
+    label = Label::create("0", "fonts/Marker Felt.ttf", 24);
+    label->setPosition(Vec2(winSize.width / 2, winSize.height -  label->getContentSize().height));
+    time_ = 0;
+
     mySprite = Runner::create("ninja/Run__000.png");
     mySprite->setPosition(Vec2(500, 350));
-
-    auto spritecache = SpriteFrameCache::getInstance();
-    spritecache->addSpriteFramesWithFile("ninja/runner.plist");
-    spritecache->addSpriteFramesWithFile("ninja/runnerJump.plist");
-    spritecache->addSpriteFramesWithFile("ninja/runnerDuck.plist");
-    spritecache->addSpriteFramesWithFile("ninja/runnerDead.plist");
-
 
     spike_ = Sprite::create("spikes.jpg");
     spike_->setScale(1);
@@ -44,6 +41,8 @@ bool GameWorld::init()
     this->addChild(mySprite);
     createAnimation();
 
+    this->schedule(schedule_selector(GameWorld::TimeMethod), 0.01);
+
     this->scheduleUpdate();
     auto listener = EventListenerKeyboard::create();
 
@@ -52,22 +51,7 @@ bool GameWorld::init()
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    Pipe *pipeDown = Pipe::create("pipe1.png");
-    pipeDown->setTag(1);
-    pipeDown->setScale(2);
-    pipeDown->setVisible(false);
-    pipeDown->setPosition(Vec2(winSize.width + pipeDown->getContentSize().width / 2, 400));
 
-
-    Obstacle::getInstance().addPrototype(ObstacleEnum::PipeDown, pipeDown);
-
-    Pipe *pipeUp = Pipe::create("image2.jpg");
-    pipeUp->setTag(2);
-    pipeUp->setScale(2);
-    pipeUp->setVisible(false);
-    pipeUp->setPosition(Vec2(winSize.width + pipeUp->getContentSize().width / 2, 780));
-
-    Obstacle::getInstance().addPrototype(ObstacleEnum::PipeUP, pipeUp);
 
 
     for(int i = 0; i < KNUMASTEROIDS; ++i) {
@@ -89,19 +73,19 @@ bool GameWorld::init()
         }
     }
     controller = std::make_shared<GameWorldController>(this);
-
+    this->addChild(label, 1);
     return true;
 }
 
-void GameWorld::update(float dt) {
+auto GameWorld::update(float dt)-> void {
     controller->update(dt);
 }
 
-Runner *GameWorld::getRunner() {
+auto GameWorld::getRunner()-> Runner * {
     return mySprite;
 }
 
-Vector<Obstacle *> &GameWorld::getPipes() {
+auto GameWorld::getPipes()-> Vector<Obstacle *> & {
     return pipes;
 }
 
@@ -125,6 +109,20 @@ auto GameWorld::createAnimation()->void {
 }
 
 
-Sprite *GameWorld::getSpike() {
+auto GameWorld::getSpike()-> Sprite * {
     return spike_;
+}
+
+auto GameWorld::getLabel() -> Label * {
+    return label;
+}
+
+auto GameWorld::TimeMethod(float dt)-> void {
+    time_ += dt;
+    cocos2d::__String *timeToDisplay = cocos2d::__String::createWithFormat("%.2f", time_);
+    label->setString(timeToDisplay->getCString());
+}
+
+auto GameWorld::getTime() -> int {
+    return time_;
 }

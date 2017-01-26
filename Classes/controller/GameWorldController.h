@@ -9,7 +9,7 @@
 #include "view/GameWorld.h"
 #include "Jump.h"
 #include "Duck.h"
-#include <view/ExitMenuScene.h>
+#include <view/GameOverMenuScene.h>
 
 USING_NS_CC;
 class GameWorld;
@@ -23,24 +23,27 @@ public:
 
     auto get_time_tick()->double;
 
-    void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    auto onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)->void ;
 
-    void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    auto onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)->void;
 
-    bool is_jumped();
+    auto is_jumped()-> bool;
 
-    bool checkBoxCollisionLeftBack(Sprite *box1, Sprite *box2);
+    auto checkBoxCollisionLeftBack(Sprite *box1, Sprite *box2)-> bool;
 
-    bool checkBoxCollisionTopBottom(Sprite *box1, Sprite *box2);
+    auto checkBoxCollisionTopBottom(Sprite *box1, Sprite *box2)-> bool;
 
-    void update(float dt);
+    auto update(float dt)-> void;
+
+
 private:
-    void GoToExitScene( cocos2d::Ref *sender );
-    auto setInvisible(Node * node)->void;
+    auto GoToExitScene( cocos2d::Ref *sender )-> void;
+    auto setInvisible(Node * node)-> void;
+
+
 
     bool *flag;
     GameWorld *world;
-    double time_;
     int _nextPipe;
     double _nextPipeSpawn;
 };

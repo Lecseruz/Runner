@@ -12,9 +12,9 @@ USING_NS_CC;
 class Pipe: public Obstacle{
     std::string fileName;
 public:
-    void setFileName(std::string filename);
-    Obstacle* clone();
-    static Pipe* create(std::string filename);
+    auto setFileName(std::string filename)-> void;
+    auto clone()-> Obstacle*;
+    static auto create(std::string filename)-> Pipe*;
 };
 
 

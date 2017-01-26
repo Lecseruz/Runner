@@ -11,22 +11,23 @@
 
 
 
-class ExitMenuScene : public cocos2d::Layer
+
+class GameOverScene : public cocos2d::Layer
 {
 public:
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
-//    static cocos2d::Scene* createScene();
-
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
+    virtual auto init()-> bool;
 
-    void update(float dt);
+    auto update(float dt)-> void;
 
     // implement the "static create()" method manually
-    CREATE_FUNC(ExitMenuScene);
+    CREATE_FUNC(GameOverScene);
 private:
-    void GoToGameScene( cocos2d::Ref *sender );
 
+    auto ExitGame(cocos2d::Ref *sender )-> void;
+    auto GoToGameScene( cocos2d::Ref *sender )-> void;
+
+    cocos2d::Label *myLabel;
     Runner *mySprite;;
     auto createAnimation(cocos2d::Sprite *)->void;
 };

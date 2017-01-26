@@ -14,9 +14,9 @@ public:
         return nullptr;
     };
     virtual ~Obstacle();
-    Obstacle* createObstacle(ObstacleEnum obstacleNum);
-    void addPrototype(ObstacleEnum obstacleNum, Obstacle *obstacle);
-    static Obstacle &getInstance() {
+    auto createObstacle(ObstacleEnum obstacleNum)-> Obstacle*;
+    auto addPrototype(ObstacleEnum obstacleNum, Obstacle *obstacle) -> void;
+    static auto getInstance()-> Obstacle &{
         static Obstacle object;
         return object;
     }

@@ -9,14 +9,14 @@
 #include <cocos2d.h>
 #include <view/MainMenuScene.h>
 #include <view/GameWorld.h>
-#include <view/ExitMenuScene.h>
+#include <view/GameOverMenuScene.h>
 
 
 class SceneFactory: public AbstractFactory {
 public:
     auto createMainMenuScene()->cocos2d::Scene *;
     auto createGameScene()->cocos2d::Scene *;
-    auto createExitScene()->cocos2d::Scene *;
+    auto createGameOverScene()->cocos2d::Scene *;
     static auto getInstanse()->SceneFactory&;
 private:
 

@@ -4,7 +4,7 @@
 
 #include "Duck.h"
 
-void Duck::execute(cocos2d::Sprite *sprite) {
+auto Duck::execute(cocos2d::Sprite *sprite)-> void {
     createAnimation(sprite);
 }
 

@@ -4,7 +4,7 @@
 
 #include "SceneFactory.h"
 
-cocos2d::Scene *SceneFactory::createMainMenuScene() {
+auto SceneFactory::createMainMenuScene()-> cocos2d::Scene * {
     // 'scene' is an autorelease object
     auto scene = cocos2d::Scene::create();
 
@@ -18,7 +18,7 @@ cocos2d::Scene *SceneFactory::createMainMenuScene() {
     return scene;
 }
 
-Scene *SceneFactory::createGameScene() {
+auto SceneFactory::createGameScene()-> Scene * {
     // 'scene' is an autorelease object
     auto scene = cocos2d::Scene::create();
 
@@ -32,13 +32,13 @@ Scene *SceneFactory::createGameScene() {
     return scene;
 }
 
-cocos2d::Scene *SceneFactory::createExitScene() {
+auto SceneFactory::createGameOverScene()-> cocos2d::Scene * {
     // 'scene' is an autorelease object
     auto scene = cocos2d::Scene::create();
 
     // 'layer' is an autorelease object
-    auto layer = ExitMenuScene::create();
-
+    auto layer = GameOverScene::create();
+    layer->setTag(10);
     // add layer as a child to scene
     scene->addChild(layer);
 

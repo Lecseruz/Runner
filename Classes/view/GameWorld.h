@@ -15,28 +15,38 @@ class GameWorld : public cocos2d::Layer
 {
 public:
 
-    void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    auto onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)-> void;
 
-    void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    auto onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)-> void;
 
-    virtual bool init();
+    virtual auto init()-> bool;
 
-    void update(float dt);
+    auto update(float dt)-> void;
 
     CREATE_FUNC(GameWorld);
 
-    Vector<Obstacle *> &getPipes();
+    auto getPipes()-> Vector<Obstacle *> &;
 
-    Runner* getRunner();
+    auto getRunner()-> Runner*;
 
-    Sprite* getSpike();
+    auto  getSpike()->Sprite*;
+
+    auto getLabel()-> Label *;
+
+    auto getTime()->int;
 
     auto createAnimation()->void;
+
+    auto TimeMethod(float dt)-> void;
 private:
+
+    float time_;
 
     std::shared_ptr<GameWorldController> controller;
 
     Vector<Obstacle *> pipes;
+
+    cocos2d::Label *label;
 
     Runner *mySprite;
 

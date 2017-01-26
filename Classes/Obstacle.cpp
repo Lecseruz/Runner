@@ -4,12 +4,12 @@
 
 #include "Obstacle.h"
 
-void Obstacle::addPrototype(ObstacleEnum obstacleNum, Obstacle *obstacle) {
+auto Obstacle::addPrototype(ObstacleEnum obstacleNum, Obstacle *obstacle)-> void {
     prototipesNum.push_back(obstacleNum);
     prototipes.pushBack(obstacle);
 }
 
-Obstacle *Obstacle::createObstacle(ObstacleEnum obstacleNum) {
+auto Obstacle::createObstacle(ObstacleEnum obstacleNum)-> Obstacle * {
 
     if (std::find(prototipesNum.begin(), prototipesNum.end(), obstacleNum) != prototipesNum.end()) {
         auto iter = std::find(prototipesNum.begin(), prototipesNum.end(), obstacleNum);

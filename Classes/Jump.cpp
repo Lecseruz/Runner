@@ -4,10 +4,9 @@
 
 #include "Jump.h"
 
-void Jump::execute(cocos2d::Sprite *sprite) {
+auto Jump::execute(cocos2d::Sprite *sprite)-> void  {
     auto jump = cocos2d::JumpBy::create(2, cocos2d::Vec2(0, 0), 500, 1);
     auto callbackJump = cocos2d::CallFunc::create([](){
-//        log("Jumped!");
     });
     createAnimation(sprite);
     auto seq = cocos2d::Sequence::create(jump, callbackJump/*, rotate, callbackRotate*/, nullptr);
